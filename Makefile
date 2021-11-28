@@ -1,3 +1,6 @@
+# based on https://github.com/vincentbernat/hellogopher/blob/master/Makefile 
+MODULE   = $(shell env GO111MODULE=on $(GO) list -m)
+
 GOCMD       = go 
 GOBUILD     = $(GOCMD) build
 GOTEST      = $(GOCMD) test
@@ -5,7 +8,7 @@ BINARY_NAME = dister
 BIN_DEST    = bin/$(BINARY_NAME)
 
 COMMIT_ID   ?= $(shell git rev-parse HEAD|| echo unknown) #  git id if available
-VERSION     ?= $(shell git describe --tags --always --dirty --match=v* 2> /dev/null || \
+VERSION     ?= $(shell git describe --tags --always   --match=v* 2> /dev/null || \
                  echo v0.0.1) # versioning if available 
 
 
@@ -15,9 +18,8 @@ build:
 
 	$(GOBUILD) \
 		-tags release \
-        -ldflags '-X dist/cmd.Version=$(VERSION) dist/cmd.commitID=$(COMMIT_ID)'\
-		-o $(BIN_DEST)_$(VERSION) \  
-		-v
+        -ldflags '-X dist/cmd.Version=$(VERSION) -X dist/cmd.commitID=$(COMMIT_ID)' \
+		-o $(BIN_DEST)_$(VERSION) main.go 
 
 test: 
 	$(GOTEST) -v ./...

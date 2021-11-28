@@ -20,6 +20,6 @@ var versionCmd = &cobra.Command{
 	Short: "v",
 	Long:  `Version of the project`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("hellogopher %s\n", Version)
+		fmt.Printf("Version: %s\nCommit ID: %s\n", Version, commitID)
 	},
 }
