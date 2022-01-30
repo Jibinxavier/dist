@@ -10,7 +10,7 @@ BIN_DEST    = bin/$(BINARY_NAME)
 COMMIT_ID   ?= $(shell git rev-parse HEAD|| echo unknown) #  git id if available
 VERSION     ?= $(shell git describe --tags --always   --match=v* 2> /dev/null || \
                  echo v0.0.1) # versioning if available 
-
+export GOCACHE := $(CURDIR)/build_cache
 
 all: test build 
 
