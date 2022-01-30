@@ -4,10 +4,16 @@ pipeline {
     
 
     stages {
-        stage('build') {
+        stage('test') {
             steps {
-                sh 'go version'
+                sh 'make test'
             }
         }
+        stage('build') {
+            steps {
+                sh 'make build'
+            }
+        }
+        
     }
 }
